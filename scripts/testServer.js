@@ -1,30 +1,69 @@
+var fs = require('fs')
+var path = require('path')
 var express = require('express')
 var app = express()
-var serverConfig = (require('../config/env'))['development']['api']
+var serverConfig = require('../config/envDevelopment')
 
-console.info('serverConfig:', serverConfig)
+function getHtmlFile (req) {
+  var promise
+  var reqPath = path.join(__dirname, '../src' + req.originalUrl + 'index.html')
 
-// app.use('/api', function (req, res) {
-//   res.set('content-type', 'text/html')
-//   res.send(result)
-// })
+  // console.info('##1##', req.originalUrl, reqPath)
 
-app.get('/api/*', function (req, res) {
-  // TODO compiler.outputPath is equal to the webpack publickPath
-  var obj = {
-    'data': {
-      'resultList': [],
-      'pageNo': '1',
-      'pageSize': '10',
-      'pages': '2',
-      'totalCount': '15'
-    },
-    'retmsg': '数据查找成功'
-  }
+  promise = new Promise((resolve) => {
+    fs.readFile(reqPath, function (err, result) {
+      // console.info('##2##', String(result))
+      if (err) {
+        throw new Error("can't get the file for" + reqPath)
+      } else {
+        resolve(result)
+      }
+    })
+  })
 
-  console.info('[test server req info]', req.path, req.params)
-  res.set('content-type', 'application/json')
-  res.send(JSON.stringify(obj))
+  return promise
+}
+
+function eventSource (req, res) {
+  var interval = 0
+  var timeStep = 5000
+  var index = 0
+
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive'
+  })
+  res.write('retry: ' + timeStep + '\n')
+  res.write('event: connecttime\n')
+  res.write('id: msg' + index + '\n')
+  res.write('data: ' + (new Date()) + '\n\n')
+  res.write('data: ' + (new Date()) + '\n\n')
+
+  interval = setInterval(function () {
+    index++
+    res.write('event: connecttime\n')
+    res.write('id: msg' + index + '\n')
+    res.write('data: ' + (new Date()) + '\n\n')
+  }, timeStep)
+
+  req.on('close', function () {
+    clearInterval(interval)
+  }, false)
+}
+
+app.get('/stream', function (req, res) {
+  eventSource(req, res)
+})
+
+app.get('/', function (req, res, next) {
+  getHtmlFile(req).then((html) => {
+    res.set('content-type', 'text/html')
+    res.send(html)
+    next()
+  }).catch((err) => {
+    console.error(err)
+  })
 })
 
 app.listen(serverConfig['port'], serverConfig['host'], function (arg) {

@@ -6,7 +6,7 @@ rf_express 10.60.65.181:8080
 */
 module.exports = {
   host: '127.0.0.1',
-  port: 8089,
+  port: 9000,
   rfucenterApi: '', // http://10.60.65.181:6080
   rfExpressApi: '', // http://10.60.65.181:8080
   get publicPath() {
