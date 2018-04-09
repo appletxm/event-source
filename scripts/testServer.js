@@ -6,7 +6,7 @@ var serverConfig = require('../config/envDevelopment')
 
 function getHtmlFile (req) {
   var promise
-  var reqPath = path.join(__dirname, '../src' + req.originalUrl + 'index.html')
+  var reqPath = path.join(__dirname, '../src' + req.originalUrl)
 
   // console.info('##1##', req.originalUrl, reqPath)
 
@@ -57,6 +57,17 @@ app.get('/stream', function (req, res) {
 })
 
 app.get('/', function (req, res, next) {
+  req.originalUrl = req.originalUrl + '/index.html' 
+  getHtmlFile(req).then((html) => {
+    res.set('content-type', 'text/html')
+    res.send(html)
+    next()
+  }).catch((err) => {
+    console.error(err)
+  })
+})
+
+app.get('*.html', function (req, res, next) {
   getHtmlFile(req).then((html) => {
     res.set('content-type', 'text/html')
     res.send(html)
