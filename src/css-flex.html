@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 100px;">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <title>css3 calc</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-size: .12rem;
+    }
+
+    section {
+      display: inline-block;
+      width: 4rem;
+      height: 2rem;
+      border: 1px solid gray;
+      margin: .1rem;
+      overflow: auto;
+    }
+
+    h1{
+        font-size: .12rem;
+    }
+
+    .flex-1 {
+      display: flex;
+      list-style: none;
+    }
+
+    .flex-1 li {
+      background: green;
+      font-size: .12rem;
+    }
+
+    .flex-1 li:nth-of-type(1) {
+      background: yellow;
+      width: 1.8rem;
+    }
+
+    .flex-1 li:nth-of-type(2) {
+      background: #ff0000;
+      flex-grow: 1;
+      width: .5rem;
+    }
+
+    .flex-1 li:nth-of-type(3) {
+      background: purple;
+      flex-grow: 1;
+      width: .5rem;
+    }
+
+    .flex-1 li:nth-of-type(4) {
+      background: orange;
+      flex-grow: 1;
+      width: .5rem;
+    }
+
+
+    .flex-2 {
+      display: flex;
+      list-style: none;
+    }
+
+    .flex-2 li {
+      background: green;
+      font-size: .12rem;
+    }
+
+    .flex-2 li:nth-of-type(1) {
+      background: yellow;
+      width: 2rem;
+    }
+
+    .flex-2 li:nth-of-type(2) {
+      background: #ff0000;
+      flex-shrink: 3;
+      width: .5rem;
+    }
+
+    .flex-2 li:nth-of-type(3) {
+      background: purple;
+      flex-shrink: 1;
+      width: .5rem;
+    }
+
+    .flex-2 li:nth-of-type(4) {
+      background: orange;
+      flex-shrink: 1;
+    }
+
+    .flex-3 {
+      display: flex;
+      list-style: none;
+      flex-flow: column-reverse;
+    }
+
+    .flex-3 li {
+      flex-grow: 1;
+      background: red;
+      font-size: .12rem;
+    }
+
+    .flex-4 {
+      display: flex;
+      list-style: none;
+      flex-flow: row-reverse;
+    }
+
+    .flex-4 li {
+      flex-grow: 1;
+      background: red;
+      font-size: .12rem;
+    }
+
+
+    .flex-5 {
+      display: flex;
+      list-style: none;
+      flex-direction: row;
+    }
+
+    .flex-5 li {
+      flex-grow: 1;
+      background: red;
+      font-size: .12rem;
+    }
+
+    .flex-6 {
+      display: flex;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .flex-6 li {
+      flex-grow: 1;
+      background: red;
+      font-size: .12rem;
+    }
+
+    .flex-7 {
+      display: flex;
+      list-style: none;
+      align-content: flex-end;
+    }
+
+    .flex-7 li {
+      background: red;
+      font-size: .12rem;
+      padding: .2rem;
+      margin: .2rem;
+      
+    }
+
+    .flex-8{
+        display: flex;
+        list-style: none;
+        flex-wrap: wrap;
+	    flex-direction: row;
+        height: 1rem;
+        background: green;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .flex-8 li{
+        padding: .1rem;
+        margin: .05rem;
+        background: orange;
+        flex: 1 1 .6rem;
+        height: .5rem;
+    }
+
+  </style>
+</head>
+
+<body>
+  <section>
+    <ul class="flex-1">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+    </ul>
+  </section>
+
+  <section>
+    <ul class="flex-2">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+    </ul>
+  </section>
+
+  <section>
+    <ul class="flex-3">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+    </ul>
+  </section>
+
+  <section>
+    <ul class="flex-4">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+    </ul>
+  </section>
+
+  <section>
+    <ul class="flex-5">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+    </ul>
+  </section>
+
+
+  <section>
+    <ul class="flex-6">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+    </ul>
+  </section>
+
+  <section>
+        <ul class="flex-7">
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+        </ul>
+      </section>
+
+ <section>
+     <h1>align-content</h1>
+     <ul class="flex-8">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+          </ul>
+     </section>     
+</body>
+
+</html>
