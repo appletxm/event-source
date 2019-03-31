@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 100px;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>test event source</title>
+    <style>
+        .calc{
+            height: calc(100% - 1rem)
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="startEventSource()">start event source</button>
+    <button onclick="closeEventSource()">close event source</button>
+
+    <script type="text/javascript">
+        var source
+
+        function startEventSource() {
+            source = new EventSource('/stream');
+
+            source.addEventListener("open", function (event) {
+                console.log('[open]', event);
+                // handle open event
+            }, false);
+
+            source.addEventListener('message', function (event) {
+                console.log('[message]', event.data);
+            }, false);
+
+            source.onerror = function (event) {
+                console.info('[error]', event)
+                // handle error event
+            };
+
+            source.addEventListener("connecttime", function (event) {
+                var data = event.data;
+                var origin = event.origin;
+                var lastEventId = event.lastEventId;
+                console.log('[message customize]', data, origin, lastEventId);
+                // handle message
+            }, false);
+
+        }
+
+        function closeEventSource() {
+          source.close();
+        }
+    </script>
+</body>
+
+</html>

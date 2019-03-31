@@ -38,13 +38,12 @@ function eventSource (req, res) {
   res.write('event: connecttime\n')
   res.write('id: msg' + index + '\n')
   res.write('data: ' + (new Date()) + '\n\n')
-  res.write('data: ' + (new Date()) + '\n\n')
 
   interval = setInterval(function () {
     index++
     res.write('event: connecttime\n')
     res.write('id: msg' + index + '\n')
-    res.write('data: ' + (new Date()) + '\n\n')
+    res.write('data: {"time": "' + (new Date()) + '", name: "xiaoming"}\n\n')
   }, timeStep)
 
   req.on('close', function () {
